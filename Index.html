@@ -1,1 +1,72 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>Anatomy Atlas</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#101827;color:#f1f5f9}
+header{background:#172338;padding:22px 16px;text-align:center;border-bottom:2px solid #36c9b4}
+h1{margin:0;color:#54e0cb;font-size:27px}
+header p{color:#cbd5e1}
+main{padding:16px;max-width:760px;margin:auto}
+input,select{width:100%;padding:13px;margin:8px 0 16px;border-radius:9px;border:1px solid #475569;background:#1e293b;color:white;font-size:16px}
+h2{font-size:19px;color:#54e0cb}
+.card{background:#1e293b;padding:16px;margin:12px 0;border-radius:12px;border:1px solid #334155}
+.card h3{margin:0 0 8px;color:#7dd3fc}
+.card p{line-height:1.55;color:#e2e8f0}
+button{background:#0f766e;color:white;border:0;border-radius:8px;padding:11px 15px;font-size:15px;cursor:pointer}
+footer{text-align:center;padding:24px;color:#94a3b8;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>🧠 Anatomy Atlas</h1>
+<p>Your pocket guide to the human body</p>
+</header>
+<main>
+<h2>Explore human anatomy</h2>
+<label for="system">Choose a body system</label>
+<select id="system" onchange="render()">
+<option value="all">All systems</option>
+<option value="Skeletal">Skeletal system</option>
+<option value="Muscular">Muscular system</option>
+<option value="Nervous">Nervous system</option>
+<option value="Cardiovascular">Cardiovascular system</option>
+<option value="Respiratory">Respiratory system</option>
+<option value="Digestive">Digestive system</option>
+</select>
+<label for="search">Search structures</label>
+<input id="search" placeholder="e.g. heart, brain, femur" oninput="render()">
+<div id="results"></div>
+</main>
+<footer>Anatomy Atlas • Educational reference</footer>
+<script>
+const data=[
+["Skeletal","Skull","Protects the brain and supports the structure of the face."],
+["Skeletal","Femur","The thigh bone and the longest bone in the human body."],
+["Skeletal","Vertebral column","Supports the trunk and protects the spinal cord."],
+["Muscular","Biceps brachii","A muscle at the front of the upper arm that flexes the elbow."],
+["Muscular","Diaphragm","The main muscle used for breathing."],
+["Nervous","Brain","Processes information and coordinates many body functions."],
+["Nervous","Spinal cord","Carries signals between the brain and much of the body."],
+["Cardiovascular","Heart","Muscular organ that pumps blood through the circulation."],
+["Cardiovascular","Arteries","Blood vessels that carry blood away from the heart."],
+["Respiratory","Lungs","Organs where oxygen enters the blood and carbon dioxide leaves it."],
+["Respiratory","Trachea","Airway that carries air toward the bronchi."],
+["Digestive","Stomach","Mixes food with acid and digestive enzymes."],
+["Digestive","Small intestine","Main site of nutrient digestion and absorption."]
+];
+function render(){
+const q=document.getElementById('search').value.toLowerCase();
+const s=document.getElementById('system').value;
+const list=data.filter(x=>(s==='all'||x[0]===s)&&x.join(' ').toLowerCase().includes(q));
+document.getElementById('results').innerHTML=list.length?list.map(x=>`<article class="card"><h3>${x[1]}</h3><p><b>System:</b> ${x[0]}</p><p>${x[2]}</p></article>`).join(''):'<p>No matching structures found. Try another search.</p>';
+}
+render();
+</script>
+</body>
+</html>
